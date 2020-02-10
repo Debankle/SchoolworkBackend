@@ -1,0 +1,12 @@
+{
+  "name": "schoolwork_app_backend",
+  "version": "1.0.0",
+  "description": "Backend for the prototype schoolwork help app",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "Debankle",
+  "license": "GPL-3.0-or-later"
+}
