@@ -109,3 +109,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+
+# Project
+**/*.js
+build
