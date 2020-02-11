@@ -7,7 +7,7 @@
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/server.js",
-    "clean": ""
+    "clean": "rm -rf build"
   },
   "author": "Debankle",
   "license": "GPL-3.0-or-later",
@@ -21,6 +21,7 @@
     "mongoose": "^5.8.11"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",
     "@types/node": "^13.7.0",
     "nodemon": "^2.0.2",
