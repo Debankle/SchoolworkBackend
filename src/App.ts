@@ -7,24 +7,47 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 class SchoolworkBackend {
-    public express: Application;
+    public backend: Application;
     public port: number;
 
     constructor() {
-        this.express = express();
+        this.backend = express();
         this.port = 4200;
 
-        this.express.use(cors());
-        this.express.use(bodyParser.json());
-        this.express.use(bodyParser.urlencoded({
-            extended: false
-        }));
-
+        this.connectToMongo();
+        this.initMiddleware();
         this.initRoutes();
     }
 
+    public listen(): void {
+        this.backend.listen(this.port, () => {
+            console.log(`Server is running on port ${this.port}`);
+        }).on('error', (err: Error) => {
+            console.log(err);
+        });
+    }
+
+    private initMiddleware(): void {
+        this.backend.use(cors());
+        this.backend.use(bodyParser.json());
+        this.backend.use(bodyParser.urlencoded({
+            extended: false
+        }));
+    }
+
     private initRoutes(): void {
-        this.express.use('', BackendRouter);
+        this.backend.use('/api', BackendRouter);
+    }
+
+    private connectToMongo(): void {
+        mongoose.connect('mongodb://localhost/schoolworkbackend', {
+            promiseLibrary: require('bluebird'),
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+        }).then(() => console.log('Connected to mongoDB')).catch((err: Error) => {
+            console.error(err);
+        });
     }
 }
 
